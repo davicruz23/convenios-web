@@ -1,3 +1,10 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  {
+    path: '',
+    loadComponent: () =>
+      import('./features/partner/pages/partner-list/partner-list')
+        .then(m => m.PartnerListComponent)
+  }
+];

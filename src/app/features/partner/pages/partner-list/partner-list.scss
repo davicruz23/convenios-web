@@ -1,0 +1,46 @@
+.page {
+  padding: 24px;
+  font-family: system-ui, sans-serif;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.primary {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.partner-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.partner-card {
+  background: #f9fafb;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.tag {
+  margin-left: 8px;
+  font-size: 12px;
+  background: #fde68a;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.empty {
+  color: #6b7280;
+}
