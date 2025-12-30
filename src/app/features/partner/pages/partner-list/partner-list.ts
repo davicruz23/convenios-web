@@ -14,7 +14,7 @@ export class PartnerListComponent implements OnInit {
 
   partners: PartnerResponse[] = [];
 
-  constructor(private service: PartnerService) {}
+  constructor(private service: PartnerService) { }
 
   ngOnInit(): void {
     this.loadPartners();
@@ -22,7 +22,10 @@ export class PartnerListComponent implements OnInit {
 
   loadPartners() {
     this.service.findAll().subscribe({
-      next: (data) => this.partners = data
+      next: (data) => {
+        this.partners = data;
+      }
+
     });
   }
 }

@@ -1,0 +1,53 @@
+<aside class="sidebar">
+  <nav>
+    <ul>
+      @for (item of menu; track item.label) {
+
+        @if (!item.children) {
+          <li>
+            <a
+              [routerLink]="item.route"
+              routerLinkActive="active"
+            >
+              {{ item.label }}
+            </a>
+          </li>
+        }
+
+        @if (item.children) {
+          <li>
+            <button
+              class="submenu-title"
+              (click)="toggle(item.label)"
+            >
+              {{ item.label }}
+              <span
+                class="caret"
+                [class.open]="activeMenu === item.label"
+              >
+                ▶
+              </span>
+            </button>
+
+            <ul
+              class="submenu"
+              [class.open]="activeMenu === item.label"
+            >
+              @for (child of item.children; track child.route) {
+                <li>
+                  <a
+                    [routerLink]="child.route"
+                    routerLinkActive="active"
+                  >
+                    {{ child.label }}
+                  </a>
+                </li>
+              }
+            </ul>
+          </li>
+        }
+
+      }
+    </ul>
+  </nav>
+</aside>
