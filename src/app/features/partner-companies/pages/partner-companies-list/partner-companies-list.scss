@@ -1,0 +1,57 @@
+.partner-companies-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.company-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+
+.company-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.company-name {
+  font-size: 15px;
+  color: #1f2937;
+}
+
+.company-cnpj {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.company-discount {
+  text-align: right;
+}
+
+.company-discount .label {
+  display: block;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.company-discount .value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #059669;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+

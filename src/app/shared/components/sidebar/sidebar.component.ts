@@ -19,27 +19,32 @@ export class SidebarComponent {
   activeMenu: string | null = null;
 
   menu: SidebarItem[] = [
+    // {
+    //   label: 'Usuários',
+    //   route: '/partners',
+    // },
     {
-      label: 'Usuários',
-      route: '/',
-    },
-    {
-      label: 'Partners',
+      label: 'Clientes',
       route: '/partners',
     },
     {
-      label: 'Plans',
-      route: '/plans',
-    },
-    {
-      label: 'Relatórios',
-      route: '',
-      children: [
-        { label: 'Resumo', route: '/reports/summary' },
-        { label: 'Detalhado', route: '/reports/detail' },
-      ],
-    },
+      label: 'Empresas',
+      route: 'partner-companies',
+    }
+    // {
+    //   label: 'Plans',
+    //   route: '/plans',
+    // },
+    // {
+    //   label: 'Relatórios',
+    //   route: '',
+    //   children: [
+    //     { label: 'Resumo', route: '/reports/summary' },
+    //     { label: 'Detalhado', route: '/reports/detail' },
+    //   ],
+    // },
   ];
+
 
   toggle(menuLabel: string) {
     this.activeMenu = this.activeMenu === menuLabel ? null : menuLabel;

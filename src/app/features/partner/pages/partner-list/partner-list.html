@@ -1,31 +1,60 @@
 <div class="page">
   <header class="page-header">
-    <h1>Partners</h1>
-    <button class="primary">New Partner</button>
+    <h1>Parceiros</h1>
+    <button class="primary">Novo Parceiro</button>
   </header>
 
   @if (partners.length === 0) {
-    <p class="empty">No partners found.</p>
+    <p class="empty">Nenhum parceiro encontrado.</p>
   } @else {
-    <ul class="partner-list">
-      @for (p of partners; track p.id) {
-        <li class="partner-card">
-          <div>
-            <strong>{{ p.name }}</strong>
-            @if (!p.isHolder) {
-              <span class="tag">Dependent</span>
-            }
-          </div>
 
-          <small>
-            @if (!p.isHolder) {
-              Holder: {{ p.holderName }}
-            } @else {
-              Holder
+    <div class="partner-list">
+
+      @for (holder of partners; track holder.id) {
+        @if (holder.isHolder) {
+
+          <div class="partner-card">
+
+            <!-- TITULAR -->
+            <div class="partner-header" (click)="toggle(holder.id)">
+              <div class="partner-info">
+                <strong>{{ holder.name }}</strong>
+                <span class="subtitle">
+                  {{ getDependents(holder.id).length }} dependente(s)
+                </span>
+              </div>
+
+              <span
+                class="chevron"
+                [class.open]="openHolderId === holder.id"
+              >
+                ❯
+              </span>
+            </div>
+
+            <!-- DEPENDENTES -->
+            @if (openHolderId === holder.id) {
+              <div class="dependents">
+
+                @for (dep of getDependents(holder.id); track dep.id) {
+                  <div class="dependent-row">
+                    {{ dep.name }}
+                  </div>
+                }
+
+                @if (getDependents(holder.id).length === 0) {
+                  <div class="dependent-empty">
+                    Nenhum dependente cadastrado
+                  </div>
+                }
+
+              </div>
             }
-          </small>
-        </li>
+
+          </div>
+        }
       }
-    </ul>
+
+    </div>
   }
 </div>

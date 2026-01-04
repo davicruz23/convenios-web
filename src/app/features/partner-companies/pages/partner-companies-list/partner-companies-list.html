@@ -1,0 +1,42 @@
+<div class="page">
+  <header class="page-header">
+    <h1>Empresas Parceiras</h1>
+    <button class="primary">Nova Empresa</button>
+  </header>
+
+  @if (partnerCompanies.length === 0) {
+  <p class="empty">Nenhuma empresa encontrada.</p>
+  } @else {
+
+  <div class="partner-companies-list">
+
+    @for (company of partnerCompanies; track company.id) {
+    <div class="company-card">
+
+      <div class="company-main">
+        <strong class="company-name">
+          {{ company.name }}
+        </strong>
+
+        <span class="company-cnpj">
+          CNPJ: {{ company.cnpj }}
+        </span>
+      </div>
+
+      <div class="company-discount">
+        <span class="label">Desconto máximo</span>
+        <span class="value">
+          {{ company.maxDiscount }}%
+          <button class="danger" (click)="confirmDelete(company.id)">
+            Excluir
+          </button>
+
+        </span>
+      </div>
+
+    </div>
+    }
+
+  </div>
+  }
+</div>

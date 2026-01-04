@@ -14,12 +14,13 @@ export class PartnerService {
 
   private readonly baseUrl = environment.apiUrl + '/partner';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  // GET /api/partner
   findAll(): Observable<Partner[]> {
+    console.log('PartnerService.findAll CALLED');
     return this.http.get<Partner[]>(this.baseUrl);
   }
+
 
   // GET /api/partner/{holderId}/grouped-dependents
   findGroupedDependents(holderId: number): Observable<HolderWithPartners> {
