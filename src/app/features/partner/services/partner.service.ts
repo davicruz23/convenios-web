@@ -29,13 +29,13 @@ export class PartnerService {
     );
   }
 
-  // POST /api/partner/createHolder
-  createHolder(dto: PartnerRequest): Observable<void> {
-    return this.http.post<void>(
+  createHolder(dto: PartnerRequest): Observable<number> {
+    return this.http.post<number>(
       `${this.baseUrl}/createHolder`,
       dto
     );
   }
+
 
   // POST /api/partner/{holderId}/createDependent
   createDependent(holderId: number, dto: PartnerRequest): Observable<void> {

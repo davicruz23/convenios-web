@@ -4,7 +4,8 @@ import { RouterModule } from '@angular/router';
 
 export interface SidebarItem {
   label: string;
-  route: string;
+  route?: string;
+  icons?: string;
   children?: SidebarItem[];
 }
 
@@ -19,31 +20,25 @@ export class SidebarComponent {
   activeMenu: string | null = null;
 
   menu: SidebarItem[] = [
-    // {
-    //   label: 'Usuários',
-    //   route: '/partners',
-    // },
     {
-      label: 'Clientes',
-      route: '/partners',
+      label: 'Beneficiários',
+      children: [
+        {
+          label: 'Listar',
+          route: '/partners'
+        },
+        {
+          label: 'Novo Beneficiário',
+          route: '/upsert-partner'
+        }
+      ]
     },
     {
-      label: 'Empresas',
-      route: 'partner-companies',
+      label: 'Parceiros',
+      route: '/partner-companies'
     }
-    // {
-    //   label: 'Plans',
-    //   route: '/plans',
-    // },
-    // {
-    //   label: 'Relatórios',
-    //   route: '',
-    //   children: [
-    //     { label: 'Resumo', route: '/reports/summary' },
-    //     { label: 'Detalhado', route: '/reports/detail' },
-    //   ],
-    // },
   ];
+
 
 
   toggle(menuLabel: string) {

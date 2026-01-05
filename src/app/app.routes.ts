@@ -23,6 +23,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/partner-companies/pages/partner-companies-list/partner-companies-list')
             .then(m => m.PartnerListComponent)
+      },
+      {
+        path: 'upsert-partner',
+        loadComponent: () =>
+          import('./features/partner/pages/upsert-partner/upsert-partner')
+            .then(m => m.UpsertPartnerComponent)
       }
     ]
   }

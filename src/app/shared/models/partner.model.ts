@@ -1,4 +1,4 @@
-import { Address } from './Address.model';
+import { AddressRequest } from './Address.model';
 
 export interface Partner {
   id: number;
@@ -8,5 +8,5 @@ export interface Partner {
   holderId: number;
   isHolder: boolean;
   holderName?: string;
-  address?: Address;
+  address?: AddressRequest;
 }

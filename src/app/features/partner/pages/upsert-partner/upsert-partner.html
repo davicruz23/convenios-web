@@ -1,0 +1,207 @@
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="page-header">
+    <h1>Novo Beneficiário</h1>
+  </header>
+
+  <!-- ================= TITULAR ================= -->
+  <section class="card">
+    <h2>Dados do Titular</h2>
+
+    <div class="form-grid">
+      <div class="field">
+        <label>Nome *</label>
+        <input
+          type="text"
+          [(ngModel)]="holder.name"
+          placeholder="Nome completo"
+          required
+        />
+      </div>
+
+      <div class="field">
+        <label>CPF *</label>
+        <input
+          type="text"
+          [(ngModel)]="holder.cpf"
+          placeholder="CPF"
+          required
+        />
+      </div>
+
+      <div class="field">
+        <label>Telefone *</label>
+        <input
+          type="text"
+          [(ngModel)]="holder.phone"
+          placeholder="Telefone"
+          required
+        />
+      </div>
+    </div>
+
+    <!-- ENDEREÇO TITULAR -->
+    <h3 class="section-subtitle">Endereço do Titular</h3>
+
+    <div class="form-grid">
+      <div class="field">
+        <label>Rua *</label>
+        <input type="text" [(ngModel)]="holder.address.street" />
+      </div>
+
+      <div class="field">
+        <label>Número *</label>
+        <input type="text" [(ngModel)]="holder.address.houseNumber" />
+      </div>
+
+      <div class="field">
+        <label>Cidade *</label>
+        <input type="text" [(ngModel)]="holder.address.city" />
+      </div>
+
+      <div class="field">
+        <label>Estado *</label>
+        <input type="text" [(ngModel)]="holder.address.state" />
+      </div>
+
+      <div class="field">
+        <label>CEP *</label>
+        <input type="text" [(ngModel)]="holder.address.zip" />
+      </div>
+
+      <div class="field">
+        <label>País *</label>
+        <input type="text" [(ngModel)]="holder.address.country" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DEPENDENTES ================= -->
+  <section class="card">
+    <div class="card-header">
+      <h2>Dependentes</h2>
+
+      <button
+        class="btn-add"
+        title="Adicionar dependente"
+        (click)="addDependent()"
+        [disabled]="dependents.length >= 4"
+      >
+        +
+      </button>
+    </div>
+
+    @if (dependents.length === 0) {
+      <p class="empty">Nenhum dependente adicionado</p>
+    }
+
+    @for (dep of dependents; track $index) {
+      <div class="dependent-card">
+
+        <div class="dependent-header">
+          <strong>Dependente {{ $index + 1 }}</strong>
+
+          <button
+            type="button"
+            class="danger"
+            (click)="removeDependent($index)"
+          >
+            Remover
+          </button>
+        </div>
+
+        <!-- DADOS DEPENDENTE -->
+        <div class="form-grid">
+          <div class="field">
+            <label>Nome *</label>
+            <input
+              type="text"
+              [(ngModel)]="dep.name"
+              placeholder="Nome do dependente"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label>CPF *</label>
+            <input
+              type="text"
+              [(ngModel)]="dep.cpf"
+              placeholder="CPF"
+              required
+            />
+          </div>
+
+          <div class="field">
+            <label>Telefone</label>
+            <input
+              type="text"
+              [(ngModel)]="dep.phone"
+              placeholder="Telefone"
+            />
+          </div>
+        </div>
+
+        <!-- ENDEREÇO OPCIONAL -->
+        <div class="optional-address">
+          <label class="checkbox">
+            <input
+                type="checkbox"
+                [checked]="!!dep.address"
+                (change)="toggleDependentAddress(dep)"
+                />
+            Informar endereço
+          </label>
+
+          @if (dep.address) {
+            <div class="form-grid">
+              <div class="field">
+                <label>Rua</label>
+                <input type="text" [(ngModel)]="dep.address.street" />
+              </div>
+
+              <div class="field">
+                <label>Número</label>
+                <input type="text" [(ngModel)]="dep.address.houseNumber" />
+              </div>
+
+              <div class="field">
+                <label>Cidade</label>
+                <input type="text" [(ngModel)]="dep.address.city" />
+              </div>
+
+              <div class="field">
+                <label>Estado</label>
+                <input type="text" [(ngModel)]="dep.address.state" />
+              </div>
+
+              <div class="field">
+                <label>CEP</label>
+                <input type="text" [(ngModel)]="dep.address.zip" />
+              </div>
+
+              <div class="field">
+                <label>País</label>
+                <input type="text" [(ngModel)]="dep.address.country" />
+              </div>
+            </div>
+          }
+        </div>
+
+      </div>
+    }
+  </section>
+
+  <!-- ================= ACTIONS ================= -->
+  <footer class="actions">
+    <button
+      class="primary"
+      (click)="submit()"
+      [disabled]="loading || !isHolderValid"
+    >
+      {{ loading ? 'Salvando...' : 'Salvar' }}
+    </button>
+  </footer>
+
+</div>
