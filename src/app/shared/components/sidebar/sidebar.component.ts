@@ -24,7 +24,7 @@ export class SidebarComponent {
       label: 'Beneficiários',
       children: [
         {
-          label: 'Listar',
+          label: 'Listar Beneficiários',
           route: '/partners'
         },
         {
@@ -35,7 +35,16 @@ export class SidebarComponent {
     },
     {
       label: 'Parceiros',
-      route: '/partner-companies'
+      children: [
+        {
+          label: 'Listar Parceiros',
+          route: '/partner-companies'
+        },
+        {
+          label: 'Novo Parceiro',
+          route: '/upsert-company'
+        }
+      ]
     }
   ];
 

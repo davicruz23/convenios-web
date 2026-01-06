@@ -1,0 +1,84 @@
+<div class="page">
+
+  <header class="page-header">
+    <h1>Nova Empresa Parceira</h1>
+  </header>
+
+  <section class="card">
+    <h2>Dados da Empresa</h2>
+
+    <div class="form-grid">
+      <div class="field">
+        <label>Nome *</label>
+        <input type="text" [(ngModel)]="company.name" />
+      </div>
+
+      <div class="field">
+        <label>CNPJ *</label>
+        <input type="text" [(ngModel)]="company.cnpj" />
+      </div>
+
+      <div class="field">
+        <label>Telefone *</label>
+        <input type="text" [(ngModel)]="company.phone" />
+      </div>
+
+      <div class="field">
+        <label>Desconto Máximo (%) *</label>
+        <input
+          type="number"
+          min="0"
+          max="100"
+          [(ngModel)]="company.maxDiscount"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Endereço</h2>
+
+    <div class="form-grid">
+      <div class="field">
+        <label>Rua *</label>
+        <input type="text" [(ngModel)]="company.address.street" />
+      </div>
+
+      <div class="field">
+        <label>Número *</label>
+        <input type="text" [(ngModel)]="company.address.houseNumber" />
+      </div>
+
+      <div class="field">
+        <label>Cidade *</label>
+        <input type="text" [(ngModel)]="company.address.city" />
+      </div>
+
+      <div class="field">
+        <label>Estado *</label>
+        <input type="text" [(ngModel)]="company.address.state" />
+      </div>
+
+      <div class="field">
+        <label>CEP *</label>
+        <input type="text" [(ngModel)]="company.address.zip" />
+      </div>
+
+      <div class="field">
+        <label>País *</label>
+        <input type="text" [(ngModel)]="company.address.country" />
+      </div>
+    </div>
+  </section>
+
+  <footer class="actions">
+    <button
+      class="primary"
+      (click)="submit()"
+      [disabled]="loading || !isFormValid"
+    >
+      {{ loading ? 'Salvando...' : 'Salvar' }}
+    </button>
+  </footer>
+
+</div>

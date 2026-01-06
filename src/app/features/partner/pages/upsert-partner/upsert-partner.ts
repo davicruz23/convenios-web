@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 
 import { PartnerService } from '../../services/partner.service';
 import { PartnerRequest } from '../../../../shared/models/partner-request.model';
@@ -32,7 +32,10 @@ export class UpsertPartnerComponent {
 
   dependents: PartnerRequest[] = [];
 
-  constructor(private service: PartnerService) { }
+  constructor(
+    private service: PartnerService,
+    private cdr: ChangeDetectorRef  
+  ) { }
 
   addDependent() {
     this.dependents.push({
@@ -125,6 +128,7 @@ export class UpsertPartnerComponent {
     alert('Titular e dependentes salvos com sucesso!');
     this.loading = false;
     this.resetForm();
+    this.cdr.detectChanges();
   }
 
   get isHolderValid(): boolean {
