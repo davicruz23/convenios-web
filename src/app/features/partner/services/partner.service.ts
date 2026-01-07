@@ -17,7 +17,6 @@ export class PartnerService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<Partner[]> {
-    console.log('PartnerService.findAll CALLED');
     return this.http.get<Partner[]>(this.baseUrl);
   }
 

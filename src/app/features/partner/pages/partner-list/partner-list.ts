@@ -2,13 +2,14 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PartnerService } from '../../services/partner.service';
 import { PartnerResponse } from '../../../../shared/models/partner-response.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-partner-list',
   templateUrl: './partner-list.html',
   styleUrl: './partner-list.scss',
-  imports: [CommonModule]
+  imports: [CommonModule, RouterModule]
 })
 export class PartnerListComponent {
 

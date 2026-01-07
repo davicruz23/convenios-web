@@ -1,7 +1,13 @@
 <div class="page">
   <header class="page-header">
     <h1>Associados</h1>
-    <button class="primary">Novo associado</button>
+    <button
+  class="primary"
+  [routerLink]="['/upsert-partner']"
+>
+  Novo associado
+</button>
+
   </header>
 
   @if (partners.length === 0) {
