@@ -20,6 +20,7 @@ export class UpsertCompany {
     name: '',
     cnpj: '',
     phone: '',
+    email: '',
     maxDiscount: 0,
     address: {
       street: '',
@@ -81,6 +82,7 @@ export class UpsertCompany {
       name: '',
       cnpj: '',
       phone: '',
+      email: '',
       maxDiscount: 0,
       address: {
         street: '',

@@ -43,4 +43,12 @@ export class PartnerService {
       dto
     );
   }
+
+  search(query: string): Observable<Partner[]> {
+    return this.http.get<Partner[]>(
+      `${this.baseUrl}/search`,
+      { params: { q: query } }
+    );
+  }
+
 }

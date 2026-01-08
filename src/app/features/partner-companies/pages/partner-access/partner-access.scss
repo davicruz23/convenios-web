@@ -1,0 +1,17 @@
+.access-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.error {
+  color: #c62828;
+  font-size: 16px;
+  font-weight: 500;
+}

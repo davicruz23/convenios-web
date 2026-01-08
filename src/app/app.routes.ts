@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { Home } from './features/home/home';
+import { ConsultBeneficiaryComponent } from './features/partner-companies/pages/consult-beneficiary/consult-beneficiary';
 
 export const routes: Routes = [
   {
@@ -35,7 +36,18 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/partner-companies/pages/upsert-company/upsert-company')
             .then(m => m.UpsertCompany)
+      },
+      {
+        path: 'partner/access',
+        loadComponent: () =>
+          import('./features/partner-companies/pages/partner-access/partner-access')
+            .then(m => m.PartnerAccessComponent)
+      },
+      {
+        path: 'partner/consult-beneficiary',
+        component: ConsultBeneficiaryComponent
       }
+
     ]
   }
 ];
