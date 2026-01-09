@@ -5,6 +5,7 @@ export interface PartnerCompanyRequest {
   cnpj: string;
   phone: string;
   email: string;
+  password: string;
   maxDiscount: number;
   address: AddressRequest;
 }

@@ -16,11 +16,14 @@ export class UpsertCompany {
 
   loading = false;
 
+  confirmPassword = '';
+
   company: PartnerCompanyRequest = {
     name: '',
     cnpj: '',
     phone: '',
     email: '',
+    password: '',
     maxDiscount: 0,
     address: {
       street: '',
@@ -32,15 +35,19 @@ export class UpsertCompany {
     }
   };
 
-
   constructor(
     private service: CompaniesService,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   submit() {
     if (!this.isFormValid) {
-      alert('Preencha todos os campos obrigatórios');
+      alert('Preencha todos os campos corretamente');
+      return;
+    }
+
+    if (!this.passwordsMatch) {
+      alert('As senhas não conferem');
       return;
     }
 
@@ -60,6 +67,13 @@ export class UpsertCompany {
     });
   }
 
+  get passwordsMatch(): boolean {
+    return (
+      this.company.password.trim() !== '' &&
+      this.company.password === this.confirmPassword
+    );
+  }
+
   get isFormValid(): boolean {
     const a = this.company.address;
 
@@ -67,6 +81,9 @@ export class UpsertCompany {
       this.company.name?.trim() &&
       this.company.cnpj?.trim() &&
       this.company.phone?.trim() &&
+      this.company.email?.trim() &&
+      this.company.password?.trim() &&
+      this.confirmPassword?.trim() &&
       this.company.maxDiscount !== null &&
       a.street?.trim() &&
       a.houseNumber?.trim() &&
@@ -78,20 +95,7 @@ export class UpsertCompany {
   }
 
   private resetForm() {
-    this.company = {
-      name: '',
-      cnpj: '',
-      phone: '',
-      email: '',
-      maxDiscount: 0,
-      address: {
-        street: '',
-        houseNumber: '',
-        city: '',
-        state: '',
-        zip: '',
-        country: ''
-      }
-    };
+    this.company.password = '';
+    this.confirmPassword = '';
   }
 }

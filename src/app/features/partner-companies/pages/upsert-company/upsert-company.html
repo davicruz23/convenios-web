@@ -29,6 +29,26 @@
       </div>
 
       <div class="field">
+        <label>Senha *</label>
+        <input
+          type="password"
+          [(ngModel)]="company.password"
+        />
+      </div>
+
+      <div class="field">
+        <label>Confirmar Senha *</label>
+        <input
+          type="password"
+          [(ngModel)]="confirmPassword"
+        />
+      </div>
+
+      <p class="error" *ngIf="confirmPassword && !passwordsMatch">
+        As senhas não conferem
+      </p>
+      
+      <div class="field">
         <label>Desconto Máximo (%) *</label>
         <input
           type="number"
