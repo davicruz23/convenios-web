@@ -10,4 +10,4 @@ import { NavbarComponent } from '../shared/components/navbar/navbar.component';
   templateUrl: './main-layout.component.html',
   styleUrls: ['./main-layout.component.scss'],
 })
-export class MainLayoutComponent {}
+export class MainLayoutComponent { }
