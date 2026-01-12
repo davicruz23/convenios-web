@@ -1,0 +1,13 @@
+<div class="company-page">
+  <h2>Buscar Beneficiário</h2>
+
+  <app-beneficiary-search
+    (selected)="openDiscountModal($event)">
+  </app-beneficiary-search>
+
+  <app-discount-modal
+    *ngIf="selectedBeneficiary"
+    [beneficiary]="selectedBeneficiary"
+    (close)="selectedBeneficiary = null">
+  </app-discount-modal>
+</div>

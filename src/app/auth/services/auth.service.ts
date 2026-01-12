@@ -66,4 +66,9 @@ export class AuthService {
       return null;
     }
   }
+
+  setCompanyContext(company: any) {
+  sessionStorage.setItem('company_context', JSON.stringify(company));
+}
+
 }

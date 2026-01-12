@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { CompanyContext, CompanyContextService } from '../../../features/company/services/company-context-service';
 
 @Component({
   standalone: true,
@@ -20,6 +21,7 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
+    private companyContext: CompanyContextService,
     private router: Router
   ) { }
 
@@ -32,14 +34,24 @@ export class LoginComponent {
     }).subscribe({
       next: res => {
         console.log('[Login] sucesso', res);
+
+        const token = res.token;
+
+        localStorage.setItem('token', token);
+
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const role = payload.role;
+        if (role === 'ROLE_COMPANY') {
+
+          this.companyContext.setCompany({
+            companyName: payload.companyName
+          });
+          this.router.navigate(['/company-dashboard']);
+          return;
+        }
+
         this.router.navigate(['/home']);
       },
-      error: err => {
-        console.log('[Login] erro', err);
-        this.error = 'Email ou senha inválidos';
-        this.loading = false;
-      }
     });
   }
-
 }

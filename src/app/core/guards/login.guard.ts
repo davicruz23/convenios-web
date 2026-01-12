@@ -16,8 +16,8 @@ export const loginGuard: CanActivateFn = () => {
       router.navigate(['/home']);
     }
 
-    return false; // 🚫 bloqueia login
+    return false;
   }
 
-  return true; // ✅ pode acessar login
+  return true;
 };

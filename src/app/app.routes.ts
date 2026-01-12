@@ -1,9 +1,7 @@
 import { Routes } from '@angular/router';
-import { Home } from './features/home/home';
-
 import { loginGuard } from './core/guards/login.guard';
 import { adminGuard } from './core/guards/admin.guard';
-
+import { companyGuard } from './core/guards/company-guard';
 
 export const routes: Routes = [
 
@@ -32,7 +30,9 @@ export const routes: Routes = [
 
       {
         path: 'home',
-        component: Home,
+        loadComponent: () =>
+          import('./features/home/home')
+            .then(m => m.Home)
       },
 
       {
@@ -43,11 +43,42 @@ export const routes: Routes = [
       },
 
       {
+        path: 'upsert-partner',
+        loadComponent: () =>
+          import('./features/partner/pages/upsert-partner/upsert-partner')
+            .then(m => m.UpsertPartnerComponent)
+      },
+
+      {
         path: 'partner-companies',
         loadComponent: () =>
           import('./features/partner-companies/pages/partner-companies-list/partner-companies-list')
             .then(m => m.PartnerListComponent)
-      }
+      },
+
+      {
+        path: 'upsert-company',
+        loadComponent: () =>
+          import('./features/partner-companies/pages/upsert-company/upsert-company')
+            .then(m => m.UpsertCompany)
+      },
     ]
+  },
+
+  {
+    path: 'company-dashboard',
+    loadComponent: () =>
+      import('./features/company/pages/company-dashboard/company-dashboard')
+        .then(m => m.CompanyDashboardComponent),
+    canActivate: [companyGuard]
+  },
+
+  {
+    path: 'company/upsert',
+    loadComponent: () =>
+      import('./features/company/pages/company-dashboard/company-dashboard')
+        .then(m => m.CompanyDashboardComponent),
+    canActivate: [companyGuard]
   }
+
 ];

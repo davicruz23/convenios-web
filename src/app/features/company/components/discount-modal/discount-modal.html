@@ -1,0 +1,27 @@
+<div class="modal">
+  <h3>Gerar Desconto</h3>
+
+  <p><strong>Beneficiário:</strong> {{ beneficiary.name }}</p>
+  <p><strong>Data:</strong> {{ today | date:'dd/MM/yyyy' }}</p>
+
+  <input
+    type="number"
+    placeholder="ID do procedimento"
+    [(ngModel)]="procedureId"
+  />
+
+  <button
+    (click)="calculate()"
+    [disabled]="!procedureId"
+  >
+    Gerar desconto
+  </button>
+
+  <div *ngIf="discount !== undefined">
+    <p>Desconto: <strong>{{ discount }}%</strong></p>
+
+    <button (click)="confirm()">Confirmar</button>
+  </div>
+
+  <button class="close" (click)="close.emit()">Cancelar</button>
+</div>

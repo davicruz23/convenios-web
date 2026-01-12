@@ -1,30 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PartnerContextService, PartnerCompanyContext } from '../../services/partner-context.service';
-import { PartnerService } from '../../../partner/services/partner.service';
 import { Partner } from '../../../../shared/models/partner.model';
+import { PartnerService } from '../../../partner/services/partner.service';
+import { CompanyContext, CompanyContextService } from '../../services/company-context-service';
 
 @Component({
-  selector: 'app-consult-beneficiary',
+  selector: 'app-beneficiary-search',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './consult-beneficiary.html',
-  styleUrl: './consult-beneficiary.scss'
+  imports: [
+    CommonModule,
+    FormsModule
+  ],
+  templateUrl: './beneficiary-search.html',
+  styleUrl: './beneficiary-search.scss'
 })
-export class ConsultBeneficiaryComponent implements OnInit {
+export class BeneficiarySearchComponent {
 
   search = '';
-  company: PartnerCompanyContext | null = null;
+  company: CompanyContext | null = null;
 
   loading = false;
   results: Partner[] = [];
   error = '';
 
   constructor(
-    private contextService: PartnerContextService,
+    private contextService: CompanyContextService,
     private partnerService: PartnerService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.company = this.contextService.getCompany();
@@ -56,3 +59,4 @@ export class ConsultBeneficiaryComponent implements OnInit {
     console.log('Selecionado:', beneficiary);
   }
 }
+
