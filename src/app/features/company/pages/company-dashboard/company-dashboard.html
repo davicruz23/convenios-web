@@ -1,22 +1,29 @@
-<div class="company-page">
+<div class="page">
 
-  <header class="page-header">
-    <h2>Buscar Beneficiário</h2>
-    <p>Localize o beneficiário e gere o desconto do procedimento</p>
+  <header class="header">
+    <div class="header-left">
+      <h2 class="company-name">{{ company?.companyName }}</h2>
+      <span class="subtitle">Área do Parceiro</span>
+    </div>
+
+    <button class="logout-btn" (click)="logout()">
+      Sair
+    </button>
   </header>
 
-  <section class="content">
+  <main class="main">
+    <section class="card">
+      <app-beneficiary-search
+        (selected)="openDiscountModal($event)">
+      </app-beneficiary-search>
+    </section>
+  </main>
 
-    <app-beneficiary-search
-      (selected)="openDiscountModal($event)">
-    </app-beneficiary-search>
-
-  </section>
-
-  <app-discount-modal
-    *ngIf="selectedBeneficiary"
-    [beneficiary]="selectedBeneficiary"
-    (close)="selectedBeneficiary = null">
-  </app-discount-modal>
+  @if (selectedBeneficiary) {
+    <app-discount-modal
+      [beneficiary]="selectedBeneficiary"
+      (close)="selectedBeneficiary = null">
+    </app-discount-modal>
+  }
 
 </div>

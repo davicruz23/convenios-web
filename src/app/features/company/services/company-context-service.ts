@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 export interface CompanyContext {
+  companyId: number;
   companyName: string;
 }
 
@@ -9,7 +10,7 @@ export class CompanyContextService {
 
   private readonly STORAGE_KEY = 'company_context';
 
-  setCompany(context: CompanyContext) {
+  setCompany(context: CompanyContext): void {
     sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(context));
   }
 
@@ -18,11 +19,15 @@ export class CompanyContextService {
     return data ? JSON.parse(data) : null;
   }
 
+  getCompanyId(): number | null {
+    return this.getCompany()?.companyId ?? null;
+  }
+
   isAuthenticated(): boolean {
     return !!this.getCompany();
   }
 
-  clear() {
+  clear(): void {
     sessionStorage.removeItem(this.STORAGE_KEY);
   }
 }

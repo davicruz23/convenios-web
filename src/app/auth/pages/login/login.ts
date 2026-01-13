@@ -44,7 +44,8 @@ export class LoginComponent {
         if (role === 'ROLE_COMPANY') {
 
           this.companyContext.setCompany({
-            companyName: payload.companyName
+            companyName: payload.companyName,
+            companyId: payload.companyId
           });
           this.router.navigate(['/company-dashboard']);
           return;

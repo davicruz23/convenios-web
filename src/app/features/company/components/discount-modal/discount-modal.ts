@@ -2,42 +2,104 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { CompanyService } from '../../services/company';
+import { ConventionService } from '../../services/convention-usage-service';
+import { CompanyContextService } from '../../services/company-context-service';
+import { ConfirmDiscountDTO } from '../../../../shared/dtos/confirm-discount.dto';
+import { CalculateDiscountDTO } from '../../../../shared/dtos/calculate-discount.dto';
 
 @Component({
   selector: 'app-discount-modal',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './discount-modal.html'
+  templateUrl: './discount-modal.html',
+  styleUrl: './discount-modal.scss'
 })
 export class DiscountModalComponent {
 
-  @Input() beneficiary!: any;
+  @Input() beneficiary!: any; // partner
   @Output() close = new EventEmitter<void>();
 
   today = new Date();
-  procedureId!: number;
+
+  procedureName = '';
   discount?: number;
+  loading = false;
+  error = '';
 
-  constructor(private service: CompanyService) {}
+  private companyId!: number;
 
-  calculate() {
-    if (!this.procedureId) return;
+  constructor(
+    private service: ConventionService,
+    private contextService: CompanyContextService
+  ) {}
 
-    this.service.calculateDiscount({
-      beneficiaryId: this.beneficiary.id,
-      procedureId: this.procedureId
-    }).subscribe(res => {
-      this.discount = res.discount;
+  ngOnInit(): void {
+    const company = this.contextService.getCompany();
+
+    if (!company) {
+      this.error = 'Empresa não encontrada no contexto';
+      return;
+    }
+
+    this.companyId = company.companyId;
+  }
+
+  /** Apenas calcula */
+  calculate(): void {
+    if (
+      !this.beneficiary?.id ||
+      !this.procedureName.trim() ||
+      this.loading
+    ) return;
+
+    this.loading = true;
+    this.error = '';
+
+    const dto: CalculateDiscountDTO = {
+      partnerId: this.beneficiary.id,
+      companyId: this.companyId
+    };
+
+    this.service.calculateDiscount(dto).subscribe({
+      next: discount => {
+        this.discount = discount;
+        this.loading = false;
+      },
+      error: () => {
+        this.error = 'Erro ao calcular desconto';
+        this.loading = false;
+      }
     });
   }
 
-  confirm() {
-    this.service.confirmDiscount({
-      beneficiaryId: this.beneficiary.id,
-      procedureId: this.procedureId
-    }).subscribe(() => {
-      this.close.emit();
+  /** Confirma e salva */
+  confirm(): void {
+    if (
+      !this.beneficiary?.id ||
+      !this.procedureName.trim() ||
+      this.discount == null ||
+      this.loading
+    ) return;
+
+    this.loading = true;
+
+    const dto: ConfirmDiscountDTO = {
+      partnerId: this.beneficiary.id,
+      companyId: this.companyId,
+      procedureName: this.procedureName.trim(),
+      discount: this.discount
+    };
+
+    this.service.confirmDiscount(dto).subscribe({
+      next: () => this.close.emit(),
+      error: () => {
+        this.error = 'Erro ao confirmar desconto';
+        this.loading = false;
+      }
     });
+  }
+
+  closeModal(): void {
+    this.close.emit();
   }
 }

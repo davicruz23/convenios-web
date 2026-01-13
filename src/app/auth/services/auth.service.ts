@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environments';
 import { decodeJwtPayload } from '../../utils/jwt.util';
+import { CompanyContextService } from '../../features/company/services/company-context-service';
 
 export interface LoginRequest {
   email: string;
@@ -18,28 +19,28 @@ export class AuthService {
 
   private readonly baseUrl = environment.apiUrl + '/auth';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private companyContextService: CompanyContextService
+  ) {}
 
   login(dto: LoginRequest): Observable<LoginResponse> {
-    console.log('[AuthService] chamando API', dto);
-
     return this.http
       .post<LoginResponse>(`${this.baseUrl}/login`, dto)
       .pipe(
         tap(res => {
-          console.log('[AuthService] resposta', res);
           sessionStorage.setItem('auth_token', res.token);
+
+          const payload = decodeJwtPayload(res.token);
+
+          if (payload.companyId && payload.companyName) {
+            this.companyContextService.setCompany({
+              companyId: payload.companyId,
+              companyName: payload.companyName
+            });
+          }
         })
       );
-  }
-
-
-  logout(): void {
-    sessionStorage.clear();
-  }
-
-  getToken(): string | null {
-    return sessionStorage.getItem('auth_token');
   }
 
   isAuthenticated(): boolean {
@@ -54,21 +55,23 @@ export class AuthService {
     }
   }
 
+  logout(): void {
+    sessionStorage.clear();
+  }
+
+  getToken(): string | null {
+    return sessionStorage.getItem('auth_token');
+  }
 
   getRole(): string | null {
     const token = this.getToken();
     if (!token) return null;
 
     try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
+      const payload = decodeJwtPayload(token);
       return payload.role ?? null;
     } catch {
       return null;
     }
   }
-
-  setCompanyContext(company: any) {
-  sessionStorage.setItem('company_context', JSON.stringify(company));
-}
-
 }
