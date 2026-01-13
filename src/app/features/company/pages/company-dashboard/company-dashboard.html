@@ -1,13 +1,22 @@
 <div class="company-page">
-  <h2>Buscar Beneficiário</h2>
 
-  <app-beneficiary-search
-    (selected)="openDiscountModal($event)">
-  </app-beneficiary-search>
+  <header class="page-header">
+    <h2>Buscar Beneficiário</h2>
+    <p>Localize o beneficiário e gere o desconto do procedimento</p>
+  </header>
+
+  <section class="content">
+
+    <app-beneficiary-search
+      (selected)="openDiscountModal($event)">
+    </app-beneficiary-search>
+
+  </section>
 
   <app-discount-modal
     *ngIf="selectedBeneficiary"
     [beneficiary]="selectedBeneficiary"
     (close)="selectedBeneficiary = null">
   </app-discount-modal>
+
 </div>

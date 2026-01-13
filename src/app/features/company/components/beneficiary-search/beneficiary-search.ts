@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Partner } from '../../../../shared/models/partner.model';
 import { PartnerService } from '../../../partner/services/partner.service';
 import { CompanyContext, CompanyContextService } from '../../services/company-context-service';
+import { AuthService } from '../../../../auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-beneficiary-search',
@@ -26,7 +28,9 @@ export class BeneficiarySearchComponent {
 
   constructor(
     private contextService: CompanyContextService,
-    private partnerService: PartnerService
+    private partnerService: PartnerService,
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -57,6 +61,11 @@ export class BeneficiarySearchComponent {
 
   selectBeneficiary(beneficiary: Partner): void {
     console.log('Selecionado:', beneficiary);
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
 

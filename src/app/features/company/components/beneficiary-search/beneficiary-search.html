@@ -1,45 +1,59 @@
 <div class="page">
 
   <header class="header">
-    <h2>{{ company?.companyName }}</h2>
+    <div class="left">
+      <h2>{{ company?.companyName }}</h2>
+      <span class="subtitle">Área do Parceiro</span>
+    </div>
+
+    <button class="logout" (click)="logout()">
+      Sair
+    </button>
   </header>
 
-  <div class="search-box">
-    <input
-      type="text"
-      placeholder="Buscar por nome ou CPF"
-      [(ngModel)]="search"
-      (ngModelChange)="onSearchChange()"
-      autocomplete="off"
-    />
+  <div class="card">
+
+    <div class="search-box">
+      <input
+        type="text"
+        placeholder="Buscar beneficiário por nome ou CPF"
+        [(ngModel)]="search"
+        (ngModelChange)="onSearchChange()"
+        autocomplete="off"
+      />
+    </div>
+
+    <p class="hint" *ngIf="search.length > 0 && search.length < 2">
+      Digite pelo menos 2 caracteres
+    </p>
+
+    <p class="loading" *ngIf="loading">Buscando...</p>
+    <p class="error" *ngIf="error">{{ error }}</p>
+
+    <ul class="results" *ngIf="results.length">
+      <li
+        *ngFor="let p of results"
+        (click)="selectBeneficiary(p)"
+        class="result-item"
+      >
+        <div class="info">
+          <strong>{{ p.name }}</strong>
+          <span class="cpf">{{ p.cpf }}</span>
+        </div>
+
+        <span
+          class="badge"
+          [class.holder]="p.isHolder"
+        >
+          {{ p.isHolder ? 'Titular' : 'Dependente' }}
+        </span>
+      </li>
+    </ul>
+
+    <p class="empty" *ngIf="!loading && search.length >= 2 && !results.length">
+      Nenhum beneficiário encontrado
+    </p>
+
   </div>
-
-  <p class="hint" *ngIf="search.length > 0 && search.length < 2">
-    Digite pelo menos 2 caracteres
-  </p>
-
-  <p class="loading" *ngIf="loading">Buscando...</p>
-  <p class="error" *ngIf="error">{{ error }}</p>
-
-  <ul class="results" *ngIf="results.length">
-    <li
-      *ngFor="let p of results"
-      (click)="selectBeneficiary(p)"
-      class="result-item"
-    >
-      <div class="info">
-        <strong>{{ p.name }}</strong>
-        <span class="cpf">{{ p.cpf }}</span>
-      </div>
-
-      <span class="badge" [class.holder]="p.isHolder">
-        {{ p.isHolder ? 'Titular' : 'Dependente' }}
-      </span>
-    </li>
-  </ul>
-
-  <p *ngIf="!loading && search.length >= 2 && !results.length">
-    Nenhum beneficiário encontrado
-  </p>
 
 </div>
